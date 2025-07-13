@@ -27,6 +27,7 @@
       border-radius: 16px;
       padding: 1rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      white-space: normal;
     }
     .semestre h2 {
       text-align: center;
@@ -43,6 +44,8 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     li:hover {
       background-color: #fbcfe2;
@@ -60,7 +63,6 @@
 <body>
   <h1>Malla Curricular - Enfermería</h1>
   <div id="contenedor"></div>
-
 
   <script>
     const malla = {
