@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Curricular Enfermería</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .semestre {
+      margin: 1.5rem auto;
+      padding: 1rem;
+      background: white;
+      max-width: 700px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 0.5rem 0;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    li:hover {
+      background: #efefef;
+    }
+    li.checked {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla Curricular - Enfermería</h1>
+  <div id="contenedor"></div>
+
+  <script>
+    const malla = {
+      "1": [
+        "Introducción a los Estudios Profesionales de Enfermería",
+        "Bases Teóricas de Enfermería",
+        "Biología Celular y Genética",
+        "Anatomía",
+        "Bioquímica",
+        "Histoembriología",
+        "Psicología General",
+        "Psicología del Desarrollo"
+      ],
+      "2": [
+        "Química",
+        "Bioestadística",
+        "Enfermería en el Ciclo Vital",
+        "Escritura y Lectura Académica",
+        "Ética y Responsabilidad Social",
+        "Comunicación Eficaz",
+        "Multiculturalidad",
+        "Competencias Académicas Universitarias",
+        "Competencias Tecnológicas"
+      ],
+      "3": [
+        "Enfermería en Educación para la Salud",
+        "Bases Conceptuales de Enfermería",
+        "Bases Clínicas de Enfermería",
+        "Introducción a la Enfermería Comunitaria y Salud Familiar"
+      ],
+      "4": [
+        "Enfermería en Salud Mental y Psiquiatría",
+        "Integrado de Enfermería del Adulto y Senescente Clínico y Comunitario",
+        "Integrado en Ciencias de la Salud I",
+        "Socioantropología",
+        "Microbiología Integral",
+        "Integrado en Ciencias de la Salud II"
+      ],
+      "5": [
+        "Gestión en Enfermería I",
+        "Gestión en Enfermería II",
+        "Gestión Contable y Financiera",
+        "Gestión y Liderazgo",
+        "Salud Pública"
+      ],
+      "6": [
+        "Integrado de Enfermería Materno Infantil y Adolescente Clínico y Comunitario",
+        "Metodología de la Investigación I",
+        "Ética y Bioética en Enfermería",
+        "Metodología de la Investigación II"
+      ],
+      "7": [
+        "Internado de Enfermería en Urgencia",
+        "Gestión en Enfermería III",
+        "Derecho Laboral",
+        "Taller de Emprendimiento",
+        "Tópicos de Gestión Estratégica"
+      ],
+      "8": [
+        "Internado Intrahospitalario",
+        "Internado de Enfermería Comunitaria y Salud Familiar",
+        "Internado Electivo"
+      ]
+    };
+
+    const contenedor = document.getElementById("contenedor");
+    const estado = JSON.parse(localStorage.getItem("estadoMalla") || "{}");
+
+    for (let semestre in malla) {
+      const div = document.createElement("div");
+      div.className = "semestre";
+
+      const h2 = document.createElement("h2");
+      h2.textContent = `Semestre ${semestre}`;
+      div.appendChild(h2);
+
+      const ul = document.createElement("ul");
+
+      malla[semestre].forEach((ramo, i) => {
+        const li = document.createElement("li");
+        li.textContent = ramo;
+        const key = `${semestre}-${i}`;
+        if (estado[key]) li.classList.add("checked");
+
+        li.addEventListener("click", () => {
+          li.classList.toggle("checked");
+          estado[key] = li.classList.contains("checked");
+          localStorage.setItem("estadoMalla", JSON.stringify(estado));
+        });
+
+        ul.appendChild(li);
+      });
+
+      div.appendChild(ul);
+      contenedor.appendChild(div);
+    }
+  </script>
+</body>
+</html>
